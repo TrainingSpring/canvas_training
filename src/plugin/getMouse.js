@@ -8,15 +8,10 @@ export default function MouseInfo(can,x,y) {
   this.x = x;
   this.y = y;
   this.type = undefined;
-  can.onmouseover = ()=>{
     can.onmousemove =  (event)=> {
       this.x = event.offsetX;
       this.y = event.offsetY;
       this.type = 'move';
     };
-  };
-  can.onmouseout = ()=>{
-    can.onmousemove =  null;
-  }
-  return this;
+    return {x:this.x,y:this.y}
 }

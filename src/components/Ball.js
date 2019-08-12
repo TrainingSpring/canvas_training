@@ -5,6 +5,8 @@ export default class Ball {
     this.r = 20;
     this.fillStyle = "blue";
     this.strokeStyle = "red";
+    this.vx = 0;
+    this.vy = 0;
     this.alpha = 1;
     Object.assign(this,props);
     return this;
@@ -14,7 +16,7 @@ export default class Ball {
     ctx.save();
     ctx.fillStyle = fillStyle;
     // ctx.translate(x,y);
-    ctx.scale(1,1);
+    // ctx.scale(1,1);
     ctx.strokeStyle = strokeStyle;
     ctx.globalAlpha = alpha;
     ctx.beginPath();

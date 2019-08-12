@@ -24,7 +24,6 @@ can.onmousedown = ev=>{
     if (r.isPoint({x:ox,y:oy})){
       dx = ox - r.x;
       dy = oy - r.y;
-      console.log(dx,dy);
       targetRect = r;
     }
   }
