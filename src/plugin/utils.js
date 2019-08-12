@@ -48,38 +48,49 @@ C.handleEdge = function (ball, w, h, bounce) {
   }
 
 };
+/**
+ * @Author: Training
+ * @desc 检测小球的碰撞并反弹
+ * @params 两个小球对象
+ */
 C.checkBallHit = (b1,b2)=>{
+  // 获取基本参数:  小球的距离
   let dx = b1.x - b2.x;
   let dy = b1.y - b2.y;
   let dist = Math.sqrt(dx ** 2 + dy **2);
+  // 判断是否相撞
   if (dist < b1.r + b2.r){
+    // 利用反正切 计算弧度
     let angle = Math.atan2(dy,dx);
+    // 获取这个弧度的余弦
     let cos = Math.cos(angle);
+    // 获取这个弧度的正弦
     let sin = Math.sin(angle);
-
+    // 以小球2为圆心点 做系统旋转
+    // 所以小球2的 x,y 就都为0
     let x2 = 0;
     let y2 = 0;
+    // 以小球2为圆心点 做系统旋转
     let x1 = dx * cos + dy * sin;
     let y1 = dy * cos - dx * sin;
-
+    // 旋转小球的速度
     let vx2 = b2.vx * cos + b2.vy * sin;
     let vy2 = b2.vy * cos - b2.vx * sin;
     let vx1 = b1.vx * cos + b1.vy * sin;
     let vy1 = b1.vy * cos - b1.vx * sin;
-
+    // 获取碰撞过后的速度
     let vx1f = ((b1.m - b2.m) * vx1 + 2 * b2.m * vx2) / (b1.m + b2.m);
     let vx2f = ((b2.m - b1.m) * vx2 + 2 * b1.m * vx1) / (b1.m + b2.m);
-
+    // 碰撞过后  复位操作
     let lep = b1.r + b2.r - Math.abs(dist);
-
     x2 += vx2f > 0 ?lep/2 : -lep/2;
     x1 += vx1f > 0 ?lep/2 : -lep/2;
-
+    // 将坐标旋转回去
     b2.x = x2 * cos - y2 * sin + b2.x;
     b2.y = y2 * cos + x2 * sin + b2.y;
     b1.x = x1 * cos - y1 * sin + b2.x;
     b1.y = y1 * cos + x1 * sin + b2.y;
-
+    // 将速度旋转回去
     b2.vx = vx2f * cos - vy2 * sin;
     b2.vy = vy2 * cos + vx2f * sin;
     b1.vx = vx1f * cos - vy1 * sin;
@@ -87,7 +98,7 @@ C.checkBallHit = (b1,b2)=>{
   }
 };
 C.mouseInfo = (can)=> {
-  let mouse = {x:0,y:0}
+  let mouse = {x:0,y:0};
   can.onmousemove =  (event)=> {
     let ox  = event.offsetX;
     let oy = event.offsetY;
@@ -95,5 +106,5 @@ C.mouseInfo = (can)=> {
     mouse .y = oy;
   };
   return mouse;
-}
+};
 export default C;
